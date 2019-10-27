@@ -6,18 +6,18 @@ package com.aliction.gitproviders.bitbucket.exceptions;
  * Date: Oct 23, 2019
  *
  */
-public class BitbucketCloudCreateRepositoryException extends BitbucketCloudException {
+public class BitbucketCloudEmailNotFound extends BitbucketCloudException {
 
     /**
      * 
      */
-    private static final long serialVersionUID = -2907107496948191466L;
+    private static final long serialVersionUID = -9166326438666818434L;
 
     /**
      * 
      * @param errorMsg
      */
-    public BitbucketCloudCreateRepositoryException(String errorMsg) {
+    public BitbucketCloudEmailNotFound(String errorMsg) {
         super(errorMsg);
         // TODO Auto-generated constructor stub
     }
