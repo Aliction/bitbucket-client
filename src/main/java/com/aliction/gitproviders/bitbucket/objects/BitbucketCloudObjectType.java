@@ -3,11 +3,21 @@ package com.aliction.gitproviders.bitbucket.objects;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * An enum class that restrict object type used within the library
+ * @author Aly Ibrahim
+ * Date: Oct 25, 2019
+ *
+ */
 public enum BitbucketCloudObjectType {
     USER("user"),
     TEAM("team"),
-    REPOSITORY("repository"),
+    EMAIL("email"),
     PROJECT("project"),
+    REPOSITORY("repository"),
+    COMMIT("commit"),
+    AUTHOR("author"),
+    REPOSITORY_PERMISSION("repository-permission"),
     TEAM_PERMISSION("team-permission"),
     ERROR("error");
 

@@ -4,12 +4,23 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 
+ * @author Aly Ibrahim
+ * Date: Oct 25, 2019
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BitbucketCloudError {
 
     private BitbucketCloudObjectType type;
     private BitbucketCloudResourceError error;
 
+    /**
+     * 
+     * @param type
+     * @param error
+     */
     @JsonCreator
     public BitbucketCloudError(@JsonProperty("type") final BitbucketCloudObjectType type,
                                @JsonProperty("error") final BitbucketCloudResourceError error) {
@@ -17,11 +28,10 @@ public class BitbucketCloudError {
         this.error = error;
     }
 
-    public BitbucketCloudObjectType getType() {
-        return type;
-    }
-
-
+    /**
+     * 
+     * @return
+     */
     public BitbucketCloudResourceError getError() {
         return error;
     }
