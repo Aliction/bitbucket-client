@@ -74,7 +74,7 @@ public class RepositoryAPI extends BaseAPI {
         Response response = Get(URL, null, queryParam);
         try {
             response = Validate(response);
-            publicRepos = getPaginatedObjects(response, 5, BitbucketCloudRepository.class);
+            publicRepos = getPaginatedObjects(response, BitbucketCloudRepository.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetRepositoryException(exp.getMessage());
         }
@@ -106,7 +106,7 @@ public class RepositoryAPI extends BaseAPI {
         URL = BuildURL(new String[]{CONTROLLER, user});
         Response response = Get(URL);
         try {
-            userRepos = getPaginatedObjects(response, 5, BitbucketCloudRepository.class);
+            userRepos = getPaginatedObjects(response, BitbucketCloudRepository.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetRepositoryException(exp.getMessage());
         }
@@ -199,7 +199,7 @@ public class RepositoryAPI extends BaseAPI {
         }
         Response response = Get(URL);
         try {
-            commits = getPaginatedObjects(response, 5, BitbucketCloudCommit.class);
+            commits = getPaginatedObjects(response, BitbucketCloudCommit.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetCommitException(exp.getMessage());
         }

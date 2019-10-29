@@ -70,7 +70,7 @@ public class TeamAPI extends BaseAPI {
         String URL = BuildURL(new String[]{CONTROLLER});
         Response response = Get(URL, null, queryParam);
         try {
-            teams = getPaginatedObjects(response, 5, BitbucketCloudTeam.class);
+            teams = getPaginatedObjects(response, BitbucketCloudTeam.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetTeamException(exp.getMessage());
         }

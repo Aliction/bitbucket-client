@@ -35,6 +35,7 @@ public class BitbucketV2API {
     private UserAPI userAPI;
     private TeamAPI teamAPI;
     private WebTarget apiRootContext;
+    private int maxPageReturned = 5;
 
     /**
      * This is the constructor for creating V2 API instance to connect to all other APIs
@@ -59,6 +60,23 @@ public class BitbucketV2API {
             client = new BitbucketCloudClient().Build(hostURL);
         }
         return this.client;
+    }
+
+    /**
+     * The method is used to configure the API for max number of pages returned 
+     * The default is 5 pages, and increasing this value will affect the performance and response time
+     * @param numberOfPages - The global max number of pages returned by the all the API calls
+     */
+    public void setMaxPagesReturned(int numberOfPages) {
+        this.maxPageReturned = numberOfPages;
+    }
+
+    /**
+     * The method is used to show the current configuration of maximum number of pages to be returned
+     * @return the global max number of pages returned by the all the API calls
+     */
+    public int getMaxPagesReturned() {
+        return this.maxPageReturned;
     }
 
     /**
@@ -139,5 +157,12 @@ public class BitbucketV2API {
             teamAPI = new TeamAPI(this);
         }
         return teamAPI;
+    }
+
+    /**
+     * The method is used to disconnect and close client connnections
+     */
+    public void disconnect() {
+        this.client.disconnect();
     }
 }

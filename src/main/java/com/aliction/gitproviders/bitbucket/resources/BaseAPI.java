@@ -3,6 +3,9 @@ package com.aliction.gitproviders.bitbucket.resources;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +80,18 @@ public abstract class BaseAPI {
     /**
      * The method return list of objects extends Bitbucket object from response page
      * @param response - response object
+     * @param objectClass - Class used to cast objects
+     * @return list of Bitbucket objects
+     * @throws BitbucketCloudPageException
+     * @throws BitbucketCloudException
+     */
+    protected <T extends BitbucketCloudObject> List<T> getPaginatedObjects(final Response response, Class<T> objectClass) throws BitbucketCloudPageException, BitbucketCloudException {
+        return this.getPaginatedObjects(response, this.bitbucketAPI.getMaxPagesReturned(), objectClass);
+    }
+
+    /**
+     * The method return list of objects extends Bitbucket object from response page
+     * @param response - response object
      * @param numberOfPages - int max number of returned pages
      * @param objectClass - Class used to cast objects
      * @return list of Bitbucket objects
@@ -84,7 +99,10 @@ public abstract class BaseAPI {
      * @throws BitbucketCloudException
      */
     protected <T extends BitbucketCloudObject> List<T> getPaginatedObjects(final Response response, final int numberOfPages, Class<T> objectClass) throws BitbucketCloudPageException, BitbucketCloudException {
-        List<T> bitbucketObjects = null;
+        List<T> bitbucketObjects = new ArrayList<T>();
+        List<T> nextPageObjects = null;
+        Response nextResp = null;
+        int pageCount = numberOfPages;
         try {
             Response myresp = Validate(response);
             String pageStr = myresp.readEntity(String.class);
@@ -92,7 +110,22 @@ public abstract class BaseAPI {
             TypeFactory typeFactory = mapper.getTypeFactory();
             BitbucketCloudPage<T> page = mapper.readValue(pageStr, typeFactory.constructParametricType(BitbucketCloudPage.class, objectClass));
 
-            bitbucketObjects = page.getObjects();
+            if (page.hasNext() && pageCount > 1) {
+                String[] URLTokens = page.getNext().split("/");
+                String queryURL = BuildURL(Arrays.copyOfRange(URLTokens, 4, URLTokens.length));
+                String URL = queryURL.split("%3F")[0]; // %3F is the encoded character for ?
+                // URLTokens[URLTokens.length - 1] is the last token, the one that has the query string attached to ?key=value
+                String query = URLTokens[URLTokens.length - 1].split("\\?")[1];
+                String queryKey = query.split("=")[0]; // %3D is the encoded character for =
+                String queryVal = query.split("=")[1];
+                Map params = new HashMap();
+                params.put(queryKey, queryVal);
+                nextResp = Get(URL, null, params);
+                nextPageObjects = getPaginatedObjects(nextResp, --pageCount, objectClass);
+                bitbucketObjects.addAll(nextPageObjects);
+            }
+            //            List<T> tempObjects = page.getObjects();
+            bitbucketObjects.addAll(page.getObjects());
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudPageException(exp.getMessage());
         } catch (JsonParseException e) {

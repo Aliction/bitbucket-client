@@ -54,4 +54,8 @@ public class BitbucketCloudClient {
         return apiRootTarget;
 
     }
+
+    public void disconnect() {
+        this.client.close();
+    }
 }

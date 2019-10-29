@@ -88,7 +88,7 @@ public class UserAPI extends BaseAPI {
         List<BitbucketCloudEmail> emails = null;
         try {
             Response response = Get(URL);
-            emails = getPaginatedObjects(response, 5, BitbucketCloudEmail.class);
+            emails = getPaginatedObjects(response, BitbucketCloudEmail.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetUserEmailException(exp.getMessage());
         }
@@ -124,7 +124,7 @@ public class UserAPI extends BaseAPI {
         List<BitbucketCloudRepositoryPermission> repositoryPermissions = null;
         try {
             Response response = Validate(Get(URL, null, queryParam));
-            repositoryPermissions = getPaginatedObjects(response, 5, BitbucketCloudRepositoryPermission.class);
+            repositoryPermissions = getPaginatedObjects(response, BitbucketCloudRepositoryPermission.class);
 
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetRepositoryPermissionsException(exp.getMessage());
@@ -165,7 +165,7 @@ public class UserAPI extends BaseAPI {
         List<BitbucketCloudTeamPermission> teamPermissions = null;
         try {
             Response response = Validate(Get(URL, null, queryParam));
-            teamPermissions = getPaginatedObjects(response, 5, BitbucketCloudTeamPermission.class);
+            teamPermissions = getPaginatedObjects(response, BitbucketCloudTeamPermission.class);
         } catch (BitbucketCloudException exp) {
             throw new BitbucketCloudGetTeamPermissionsException(exp.getMessage());
         }
