@@ -1,22 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
+
   <parent>
     <groupId>com.aliction</groupId>
     <artifactId>aliction-pom</artifactId>
     <version>1.0.0</version>
   </parent>
-  
-    <scm>
+
+  <url>https://github.com/aliction/bitbucket-client</url>
+
+  <scm>
     <connection>scm:git:https://github.com/Aliction/bitbucket-client.git</connection>
     <developerConnection>scm:git:https://github.com/Aliction/bitbucket-client.git</developerConnection>
     <url>https://github.com/aliction/bitbucket-client</url>
-    <tag>HEAD</tag>
+    <tag>0.1.0</tag>
   </scm>
-  
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.aliction</groupId>
   <artifactId>bitbucket-client</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>BitbucketClient</name>
   <description>Java Implementation to Bitbucket REST API</description>
   <dependencyManagement>
@@ -37,10 +39,10 @@
         <version>2.29.1</version>
       </dependency>
       <dependency>
-    <groupId>org.glassfish.jersey.inject</groupId>
-    <artifactId>jersey-hk2</artifactId>
-    <version>2.29.1</version>
-</dependency>
+        <groupId>org.glassfish.jersey.inject</groupId>
+        <artifactId>jersey-hk2</artifactId>
+        <version>2.29.1</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -56,9 +58,9 @@
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-jackson</artifactId>
     </dependency>
-          <dependency>
-    <groupId>org.glassfish.jersey.inject</groupId>
-    <artifactId>jersey-hk2</artifactId>
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
     </dependency>
   </dependencies>
   <build>
