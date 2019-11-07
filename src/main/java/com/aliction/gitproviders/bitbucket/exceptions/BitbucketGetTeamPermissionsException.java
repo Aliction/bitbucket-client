@@ -6,18 +6,18 @@ package com.aliction.gitproviders.bitbucket.exceptions;
  * Date: Oct 25, 2019
  *
  */
-public class BitbucketCloudPageException extends Exception {
+public class BitbucketGetTeamPermissionsException extends BitbucketException {
 
     /**
      * 
      */
-    private static final long serialVersionUID = -6594206559456054037L;
+    private static final long serialVersionUID = 8084532631378279813L;
 
     /**
      * 
      * @param errorMsg
      */
-    public BitbucketCloudPageException(String errorMsg) {
+    public BitbucketGetTeamPermissionsException(String errorMsg) {
         super(errorMsg);
         // TODO Auto-generated constructor stub
     }

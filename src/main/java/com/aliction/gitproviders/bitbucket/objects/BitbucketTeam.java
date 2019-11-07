@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Date: Oct 25, 2019
  *
  */
-public class BitbucketCloudTeam extends BitbucketCloudOwner {
+public class BitbucketTeam extends BitbucketOwner {
 
     /**
      * 
@@ -20,14 +20,14 @@ public class BitbucketCloudTeam extends BitbucketCloudOwner {
      * @param account_id
      * @param type
      */
-    public BitbucketCloudTeam(@JsonProperty("uuid") final String uuid,
+    public BitbucketTeam(@JsonProperty("uuid") final String uuid,
                               @JsonProperty("created_on") final String created_on,
                               @JsonProperty("username") final String username,
                               @JsonProperty("display_name") final String display_name,
                               @JsonProperty("nickname") final String nickname,
                               @JsonProperty("account_id") final String account_id,
-                              @JsonProperty("type") final BitbucketCloudObjectType type) {
-        super(uuid, created_on, username, display_name, nickname, account_id, BitbucketCloudObjectType.TEAM);
+                              @JsonProperty("type") final BitbucketObjectType type) {
+        super(uuid, created_on, username, display_name, nickname, account_id, BitbucketObjectType.TEAM);
     }
 
 }

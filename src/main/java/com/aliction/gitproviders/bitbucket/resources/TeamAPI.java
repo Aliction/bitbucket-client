@@ -10,11 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aliction.gitproviders.bitbucket.client.BitbucketV2API;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetTeamException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudPageException;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudRole;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudTeam;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetTeamException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketPageException;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketRole;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketTeam;
 
 /**
  * The class for the team resource
@@ -41,12 +41,12 @@ public class TeamAPI extends BaseAPI {
      * @param team
      * @return team object
      */
-    public BitbucketCloudTeam getTeamInfo(String team) {
+    public BitbucketTeam getTeamInfo(String team) {
         String URL = BuildURL(new String[]{CONTROLLER, team});
-        BitbucketCloudTeam teamObj = null;
+        BitbucketTeam teamObj = null;
         try {
-            teamObj = Validate(Get(URL), BitbucketCloudTeam.class);
-        } catch (BitbucketCloudException exp) {
+            teamObj = Validate(Get(URL), BitbucketTeam.class);
+        } catch (BitbucketException exp) {
             exp.printStackTrace();
         }
         return teamObj;
@@ -57,11 +57,11 @@ public class TeamAPI extends BaseAPI {
      * Resource /2.0/teams?q=role={role}
      * @param role - logged user role are defined by the enum {admin, collaborator, member}
      * @return list of team objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudGetTeamException
+     * @throws BitbucketPageException
+     * @throws BitbucketGetTeamException
      */
-    public List<BitbucketCloudTeam> getUserTeams(BitbucketCloudRole role) throws BitbucketCloudPageException, BitbucketCloudGetTeamException {
-        List<BitbucketCloudTeam> teams = null;
+    public List<BitbucketTeam> getUserTeams(BitbucketRole role) throws BitbucketPageException, BitbucketGetTeamException {
+        List<BitbucketTeam> teams = null;
         Map<String, String> queryParam = null;
         if (role != null) {
             queryParam = new HashMap<String, String>();
@@ -70,9 +70,9 @@ public class TeamAPI extends BaseAPI {
         String URL = BuildURL(new String[]{CONTROLLER});
         Response response = Get(URL, null, queryParam);
         try {
-            teams = getPaginatedObjects(response, BitbucketCloudTeam.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetTeamException(exp.getMessage());
+            teams = getPaginatedObjects(response, BitbucketTeam.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetTeamException(exp.getMessage());
         }
         return teams;
     }

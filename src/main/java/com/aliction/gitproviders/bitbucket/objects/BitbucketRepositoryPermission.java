@@ -10,18 +10,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudRepositoryPermission extends BitbucketCloudObject {
+public class BitbucketRepositoryPermission extends BitbucketObject {
 
-    private BitbucketCloudRole permission;
-    private BitbucketCloudUser user;
-    private BitbucketCloudRepository repository;
+    private BitbucketRole permission;
+    private BitbucketUser user;
+    private BitbucketRepository repository;
 
-    public BitbucketCloudRepositoryPermission(@JsonProperty("uuid") String uuid,
+    public BitbucketRepositoryPermission(@JsonProperty("uuid") String uuid,
                                               @JsonProperty("created_on") String created_on,
-                                              @JsonProperty("permission") BitbucketCloudRole permission,
-                                              @JsonProperty("type") BitbucketCloudObjectType type,
-                                              @JsonProperty("user") BitbucketCloudUser user,
-                                              @JsonProperty("team") BitbucketCloudRepository repository) {
+                                              @JsonProperty("permission") BitbucketRole permission,
+                                              @JsonProperty("type") BitbucketObjectType type,
+                                              @JsonProperty("user") BitbucketUser user,
+                                              @JsonProperty("team") BitbucketRepository repository) {
         super(uuid, created_on, type);
         this.permission = permission;
         this.user = user;
@@ -32,7 +32,7 @@ public class BitbucketCloudRepositoryPermission extends BitbucketCloudObject {
      * 
      * @return user role/permission to the repository
      */
-    public BitbucketCloudRole getPermission() {
+    public BitbucketRole getPermission() {
         return permission;
     }
 
@@ -40,7 +40,7 @@ public class BitbucketCloudRepositoryPermission extends BitbucketCloudObject {
      * 
      * @return user object
      */
-    public BitbucketCloudUser getUser() {
+    public BitbucketUser getUser() {
         return user;
     }
 
@@ -48,7 +48,7 @@ public class BitbucketCloudRepositoryPermission extends BitbucketCloudObject {
      * 
      * @return repository object
      */
-    public BitbucketCloudRepository getRepository() {
+    public BitbucketRepository getRepository() {
         return repository;
     }
 

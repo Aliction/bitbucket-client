@@ -11,20 +11,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aliction.gitproviders.bitbucket.client.BitbucketV2API;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudEmailNotFound;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetRepositoryPermissionsException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetTeamPermissionsException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetUserEmailException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudPageException;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudEmail;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudPermission;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudRepository;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudRepositoryPermission;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudRole;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudTeam;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudTeamPermission;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudUser;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketEmailNotFound;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetRepositoryPermissionsException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetTeamPermissionsException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetUserEmailException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketPageException;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketEmail;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketPermission;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketRepository;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketRepositoryPermission;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketRole;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketTeam;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketTeamPermission;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketUser;
 
 /**
  * The class for the user resource
@@ -49,9 +49,9 @@ public class UserAPI extends BaseAPI {
      * The method will retrieve the current logged in user
      * @return user object
      */
-    public BitbucketCloudUser getLoggedUser() {
+    public BitbucketUser getLoggedUser() {
         String URL = BuildURL(new String[]{CONTROLLER});
-        BitbucketCloudUser user = Get(URL).readEntity(BitbucketCloudUser.class);
+        BitbucketUser user = Get(URL).readEntity(BitbucketUser.class);
         return user;
     }
 
@@ -60,16 +60,16 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/emails/{email}
      * @param email - String email address
      * @return email object
-     * @throws BitbucketCloudEmailNotFound
+     * @throws BitbucketEmailNotFound
      */
-    public BitbucketCloudEmail checkUserEmail(final String email) throws BitbucketCloudEmailNotFound {
+    public BitbucketEmail checkUserEmail(final String email) throws BitbucketEmailNotFound {
         String URL = BuildURL(new String[]{CONTROLLER, "emails", email});
-        BitbucketCloudEmail emailObj = null;
+        BitbucketEmail emailObj = null;
         Response response = Get(URL);
         try {
-            emailObj = Validate(response).readEntity(BitbucketCloudEmail.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudEmailNotFound(exp.getMessage());
+            emailObj = Validate(response).readEntity(BitbucketEmail.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketEmailNotFound(exp.getMessage());
         }
         return emailObj;
     }
@@ -78,19 +78,19 @@ public class UserAPI extends BaseAPI {
      * The method will return list of email objects of the current user
      * Resource /2.0/user/emails/
      * @return list of email objects
-     * @throws BitbucketCloudGetUserEmailException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetUserEmailException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudEmail> getUserEmails() throws BitbucketCloudGetUserEmailException, BitbucketCloudPageException {
+    public List<BitbucketEmail> getUserEmails() throws BitbucketGetUserEmailException, BitbucketPageException {
         String URL = BuildURL(new String[]{CONTROLLER, "emails"});
         //        String pageJSON = Get(URL).readEntity(String.class);
         //        List<BitbucketCloudEmail> emails = getPageValues(pageJSON, BitbucketCloudEmail.class);
-        List<BitbucketCloudEmail> emails = null;
+        List<BitbucketEmail> emails = null;
         try {
             Response response = Get(URL);
-            emails = getPaginatedObjects(response, BitbucketCloudEmail.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetUserEmailException(exp.getMessage());
+            emails = getPaginatedObjects(response, BitbucketEmail.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetUserEmailException(exp.getMessage());
         }
         return emails;
     }
@@ -99,10 +99,10 @@ public class UserAPI extends BaseAPI {
      * The method return user repositories
      * Resource /2.0/user/permissions/repositories
      * @return list of repositories
-     * @throws BitbucketCloudGetRepositoryPermissionsException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetRepositoryPermissionsException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudRepository> getUserRepositories() throws BitbucketCloudGetRepositoryPermissionsException, BitbucketCloudPageException {
+    public List<BitbucketRepository> getUserRepositories() throws BitbucketGetRepositoryPermissionsException, BitbucketPageException {
         return getUserRepositoriesPermissions(null);
     }
 
@@ -111,26 +111,26 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/permissions/repositories?q=permission={permission}
      * @param permission - user permissions are defined by the enum {admin, read, write}
      * @return list of repositories
-     * @throws BitbucketCloudGetRepositoryPermissionsException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetRepositoryPermissionsException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudRepository> getUserRepositoriesPermissions(final BitbucketCloudPermission permission) throws BitbucketCloudGetRepositoryPermissionsException, BitbucketCloudPageException {
+    public List<BitbucketRepository> getUserRepositoriesPermissions(final BitbucketPermission permission) throws BitbucketGetRepositoryPermissionsException, BitbucketPageException {
         Map<String, String> queryParam = null;
         if (permission != null) {
             queryParam = new HashMap<String, String>();
             queryParam.put("role", permission.toString());
         }
         String URL = BuildURL(new String[]{CONTROLLER, "permissions", "repositories"});
-        List<BitbucketCloudRepositoryPermission> repositoryPermissions = null;
+        List<BitbucketRepositoryPermission> repositoryPermissions = null;
         try {
             Response response = Validate(Get(URL, null, queryParam));
-            repositoryPermissions = getPaginatedObjects(response, BitbucketCloudRepositoryPermission.class);
+            repositoryPermissions = getPaginatedObjects(response, BitbucketRepositoryPermission.class);
 
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetRepositoryPermissionsException(exp.getMessage());
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetRepositoryPermissionsException(exp.getMessage());
         }
-        List<BitbucketCloudRepository> repositories = new ArrayList<BitbucketCloudRepository>();
-        for (BitbucketCloudRepositoryPermission repositoryPermission : repositoryPermissions) {
+        List<BitbucketRepository> repositories = new ArrayList<BitbucketRepository>();
+        for (BitbucketRepositoryPermission repositoryPermission : repositoryPermissions) {
             repositories.add(repositoryPermission.getRepository());
         }
         return repositories;
@@ -140,10 +140,10 @@ public class UserAPI extends BaseAPI {
      * The method return teams the user is belongs to
      * Resource /2.0/user/permissions/teams
      * @return list of team objects
-     * @throws BitbucketCloudGetTeamPermissionsException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetTeamPermissionsException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudTeam> getUserTeamsPermissions() throws BitbucketCloudGetTeamPermissionsException, BitbucketCloudPageException {
+    public List<BitbucketTeam> getUserTeamsPermissions() throws BitbucketGetTeamPermissionsException, BitbucketPageException {
         return getUserTeamsPermissions(null);
     }
 
@@ -152,25 +152,25 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/permissions/teams?q=permission={role}
      * @param role - user roles are defined by the enum {admin, collaborator}
      * @return list of team objects
-     * @throws BitbucketCloudGetTeamPermissionsException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetTeamPermissionsException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudTeam> getUserTeamsPermissions(final BitbucketCloudRole role) throws BitbucketCloudGetTeamPermissionsException, BitbucketCloudPageException {
+    public List<BitbucketTeam> getUserTeamsPermissions(final BitbucketRole role) throws BitbucketGetTeamPermissionsException, BitbucketPageException {
         Map<String, String> queryParam = null;
         if (role != null) {
             queryParam = new HashMap<String, String>();
             queryParam.put("role", role.toString());
         }
         String URL = BuildURL(new String[]{CONTROLLER, "permissions", "teams"});
-        List<BitbucketCloudTeamPermission> teamPermissions = null;
+        List<BitbucketTeamPermission> teamPermissions = null;
         try {
             Response response = Validate(Get(URL, null, queryParam));
-            teamPermissions = getPaginatedObjects(response, BitbucketCloudTeamPermission.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetTeamPermissionsException(exp.getMessage());
+            teamPermissions = getPaginatedObjects(response, BitbucketTeamPermission.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetTeamPermissionsException(exp.getMessage());
         }
-        List<BitbucketCloudTeam> teams = new ArrayList<BitbucketCloudTeam>();
-        for (BitbucketCloudTeamPermission teamPermission : teamPermissions) {
+        List<BitbucketTeam> teams = new ArrayList<BitbucketTeam>();
+        for (BitbucketTeamPermission teamPermission : teamPermissions) {
             teams.add(teamPermission.getTeam());
         }
         return teams;

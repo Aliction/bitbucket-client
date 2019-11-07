@@ -9,13 +9,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Date: Oct 25, 2019
  *
  */
-public enum BitbucketCloudObjectType {
+public enum BitbucketObjectType {
     USER("user"),
     TEAM("team"),
     EMAIL("email"),
     PROJECT("project"),
     REPOSITORY("repository"),
     COMMIT("commit"),
+    COMMIT_COMMENT("commit_comment"),
     AUTHOR("author"),
     REPOSITORY_PERMISSION("repository-permission"),
     TEAM_PERMISSION("team-permission"),
@@ -23,7 +24,7 @@ public enum BitbucketCloudObjectType {
 
     private String type;
 
-    private BitbucketCloudObjectType(String type) {
+    private BitbucketObjectType(String type) {
         this.type = type;
     }
 
@@ -33,8 +34,8 @@ public enum BitbucketCloudObjectType {
     }
 
     @JsonCreator
-    public static BitbucketCloudObjectType getType(String type) {
-        return BitbucketCloudObjectType.valueOf(type.toUpperCase());
+    public static BitbucketObjectType getType(String type) {
+        return BitbucketObjectType.valueOf(type.toUpperCase());
     }
 
     @JsonValue

@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.aliction.gitproviders.bitbucket.resources.CommitAPI;
 import com.aliction.gitproviders.bitbucket.resources.RepositoryAPI;
 import com.aliction.gitproviders.bitbucket.resources.TeamAPI;
 import com.aliction.gitproviders.bitbucket.resources.UserAPI;
@@ -34,6 +35,7 @@ public class BitbucketV2API {
     private RepositoryAPI repositoryAPI;
     private UserAPI userAPI;
     private TeamAPI teamAPI;
+    private CommitAPI commitAPI;
     private WebTarget apiRootContext;
     private int maxPageReturned = 5;
 
@@ -157,6 +159,17 @@ public class BitbucketV2API {
             teamAPI = new TeamAPI(this);
         }
         return teamAPI;
+    }
+
+    /**
+     * Creates or Gets CommitsAPI object
+     * @return - Commit API object
+     */
+    public CommitAPI CommitAPI() {
+        if (commitAPI == null) {
+            commitAPI = new CommitAPI(this);
+        }
+        return commitAPI;
     }
 
     /**

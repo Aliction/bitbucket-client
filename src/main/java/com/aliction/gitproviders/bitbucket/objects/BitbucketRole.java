@@ -4,30 +4,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 /**
- * 
+ * An enum class for the roles
  * @author Aly Ibrahim
  * Date: Oct 25, 2019
  *
  */
-public enum BitbucketCloudPermission {
+public enum BitbucketRole {
     ADMIN("admin"),
-    READ("read"),
-    WRITE("write");
+    COLLABORATOR("collaborator"),
+    MEMBER("member");
 
-    private String permission;
+    private String role;
 
-    private BitbucketCloudPermission(String role) {
-        this.permission = role.toUpperCase();
+    private BitbucketRole(String role) {
+        this.role = role.toUpperCase();
     }
 
     @Override
     public String toString() {
-        return permission;
+        return role;
     }
 
     @JsonCreator
-    public static BitbucketCloudPermission setRole(String input) {
-        return BitbucketCloudPermission.valueOf(input.toUpperCase());
+    public static BitbucketRole setRole(String input) {
+        return BitbucketRole.valueOf(input.toUpperCase());
     }
 
     @JsonGetter
@@ -35,5 +35,6 @@ public enum BitbucketCloudPermission {
     public String getRole() {
         return toString().toLowerCase();
     }
+
 
 }

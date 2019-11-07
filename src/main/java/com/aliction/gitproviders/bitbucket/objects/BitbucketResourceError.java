@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudResourceError {
+public class BitbucketResourceError {
 
     private String message;
     private String detail;
@@ -22,7 +22,7 @@ public class BitbucketCloudResourceError {
      * @param detail
      */
     @JsonCreator
-    public BitbucketCloudResourceError(@JsonProperty("message") final String message,
+    public BitbucketResourceError(@JsonProperty("message") final String message,
                                        @JsonProperty("detail") final String detail) {
         super();
         this.message = message;

@@ -6,7 +6,7 @@ package com.aliction.gitproviders.bitbucket.exceptions;
  * Date: Oct 23, 2019
  *
  */
-public class BitbucketCloudException extends Exception {
+public class BitbucketException extends Exception {
 
     /**
      * 
@@ -17,7 +17,7 @@ public class BitbucketCloudException extends Exception {
      * 
      * @param errorMsg
      */
-    public BitbucketCloudException(String errorMsg) {
+    public BitbucketException(String errorMsg) {
         // TODO Auto-generated constructor stub
         super(errorMsg);
     }

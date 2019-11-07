@@ -16,11 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aliction.gitproviders.bitbucket.client.BitbucketV2API;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudPageException;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudError;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudObject;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudPage;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketPageException;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketError;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketObject;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketPage;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -82,10 +82,10 @@ public abstract class BaseAPI {
      * @param response - response object
      * @param objectClass - Class used to cast objects
      * @return list of Bitbucket objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudException
+     * @throws BitbucketPageException
+     * @throws BitbucketException
      */
-    protected <T extends BitbucketCloudObject> List<T> getPaginatedObjects(final Response response, Class<T> objectClass) throws BitbucketCloudPageException, BitbucketCloudException {
+    protected <T extends BitbucketObject> List<T> getPaginatedObjects(final Response response, Class<T> objectClass) throws BitbucketPageException, BitbucketException {
         return this.getPaginatedObjects(response, this.bitbucketAPI.getMaxPagesReturned(), objectClass);
     }
 
@@ -95,10 +95,10 @@ public abstract class BaseAPI {
      * @param numberOfPages - int max number of returned pages
      * @param objectClass - Class used to cast objects
      * @return list of Bitbucket objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudException
+     * @throws BitbucketPageException
+     * @throws BitbucketException
      */
-    protected <T extends BitbucketCloudObject> List<T> getPaginatedObjects(final Response response, final int numberOfPages, Class<T> objectClass) throws BitbucketCloudPageException, BitbucketCloudException {
+    protected <T extends BitbucketObject> List<T> getPaginatedObjects(final Response response, final int numberOfPages, Class<T> objectClass) throws BitbucketPageException, BitbucketException {
         List<T> bitbucketObjects = new ArrayList<T>();
         List<T> nextPageObjects = null;
         Response nextResp = null;
@@ -108,7 +108,7 @@ public abstract class BaseAPI {
             String pageStr = myresp.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
             TypeFactory typeFactory = mapper.getTypeFactory();
-            BitbucketCloudPage<T> page = mapper.readValue(pageStr, typeFactory.constructParametricType(BitbucketCloudPage.class, objectClass));
+            BitbucketPage<T> page = mapper.readValue(pageStr, typeFactory.constructParametricType(BitbucketPage.class, objectClass));
 
             if (page.hasNext() && pageCount > 1) {
                 String[] URLTokens = page.getNext().split("/");
@@ -126,10 +126,10 @@ public abstract class BaseAPI {
             }
             //            List<T> tempObjects = page.getObjects();
             bitbucketObjects.addAll(page.getObjects());
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudPageException(exp.getMessage());
+        } catch (BitbucketException exp) {
+            throw new BitbucketPageException(exp.getMessage());
         } catch (JsonParseException e) {
-            throw new BitbucketCloudException("Couldn't map page values to " + objectClass.getSimpleName() + " objects.");
+            throw new BitbucketException("Couldn't map page values to " + objectClass.getSimpleName() + " objects.");
         } catch (JsonMappingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -207,14 +207,14 @@ public abstract class BaseAPI {
      * The overloaded response method that will return the casted objects
      * @param response - response object
      * @return response object
-     * @throws BitbucketCloudException
+     * @throws BitbucketException
      */
-    protected Response Validate(final Response response) throws BitbucketCloudException {
+    protected Response Validate(final Response response) throws BitbucketException {
         if (response.getStatusInfo().equals(Response.Status.OK)) {
             return response;
         }
-        BitbucketCloudError bitbucketCloudError = response.readEntity(BitbucketCloudError.class);
-        throw new BitbucketCloudException(bitbucketCloudError.getError().getMessage());
+        BitbucketError bitbucketCloudError = response.readEntity(BitbucketError.class);
+        throw new BitbucketException(bitbucketCloudError.getError().getMessage());
 
     }
 
@@ -223,20 +223,20 @@ public abstract class BaseAPI {
      * @param response - response object
      * @param objectClass - object class to be used for casting
      * @return casted Bitbucket object
-     * @throws BitbucketCloudException
+     * @throws BitbucketException
      */
-    protected <T extends BitbucketCloudObject> T Validate(final Response response, final Class<T> objectClass) throws BitbucketCloudException {
+    protected <T extends BitbucketObject> T Validate(final Response response, final Class<T> objectClass) throws BitbucketException {
         if (response.getStatusInfo().equals(Response.Status.OK)) {
             T object = null;
             try {
                 object = response.readEntity(objectClass);
             } catch (ProcessingException e) {
-                throw new BitbucketCloudException("Couldn't map page values to " + objectClass.getSimpleName() + " objects.");
+                throw new BitbucketException("Couldn't map page values to " + objectClass.getSimpleName() + " objects.");
             }
             return object;
         }
-        BitbucketCloudError bitbucketCloudError = response.readEntity(BitbucketCloudError.class);
-        throw new BitbucketCloudException(bitbucketCloudError.getError().getMessage());
+        BitbucketError bitbucketCloudError = response.readEntity(BitbucketError.class);
+        throw new BitbucketException(bitbucketCloudError.getError().getMessage());
 
     }
 

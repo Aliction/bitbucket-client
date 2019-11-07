@@ -6,7 +6,7 @@ package com.aliction.gitproviders.bitbucket.exceptions;
  * Date: Oct 25, 2019
  *
  */
-public class BitbucketCloudGetUserEmailException extends BitbucketCloudException {
+public class BitbucketGetUserEmailException extends BitbucketException {
 
     /**
      * 
@@ -17,7 +17,7 @@ public class BitbucketCloudGetUserEmailException extends BitbucketCloudException
      * 
      * @param errorMsg
      */
-    public BitbucketCloudGetUserEmailException(String errorMsg) {
+    public BitbucketGetUserEmailException(String errorMsg) {
         super(errorMsg);
         // TODO Auto-generated constructor stub
     }

@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudTeamPermission extends BitbucketCloudObject {
+public class BitbucketTeamPermission extends BitbucketObject {
 
-    private BitbucketCloudRole permission;
-    private BitbucketCloudObjectType type;
-    private BitbucketCloudUser user;
-    private BitbucketCloudTeam team;
+    private BitbucketRole permission;
+    private BitbucketObjectType type;
+    private BitbucketUser user;
+    private BitbucketTeam team;
 
     /**
      * 
@@ -26,12 +26,12 @@ public class BitbucketCloudTeamPermission extends BitbucketCloudObject {
      * @param user
      * @param team
      */
-    public BitbucketCloudTeamPermission(@JsonProperty("uuid") String uuid,
+    public BitbucketTeamPermission(@JsonProperty("uuid") String uuid,
                                         @JsonProperty("created_on") String created_on,
-                                        @JsonProperty("permission") BitbucketCloudRole permission,
-                                        @JsonProperty("type") BitbucketCloudObjectType type,
-                                        @JsonProperty("user") BitbucketCloudUser user,
-                                        @JsonProperty("team") BitbucketCloudTeam team) {
+                                        @JsonProperty("permission") BitbucketRole permission,
+                                        @JsonProperty("type") BitbucketObjectType type,
+                                        @JsonProperty("user") BitbucketUser user,
+                                        @JsonProperty("team") BitbucketTeam team) {
         super(uuid, created_on, type);
         this.permission = permission;
         this.user = user;
@@ -42,7 +42,7 @@ public class BitbucketCloudTeamPermission extends BitbucketCloudObject {
      * 
      * @return user role/permission to the team
      */
-    public BitbucketCloudRole getPermission() {
+    public BitbucketRole getPermission() {
         return permission;
     }
 
@@ -50,7 +50,7 @@ public class BitbucketCloudTeamPermission extends BitbucketCloudObject {
      * 
      * @return user object
      */
-    public BitbucketCloudUser getUser() {
+    public BitbucketUser getUser() {
         return user;
     }
 
@@ -58,7 +58,7 @@ public class BitbucketCloudTeamPermission extends BitbucketCloudObject {
      * 
      * @return team object
      */
-    public BitbucketCloudTeam getTeam() {
+    public BitbucketTeam getTeam() {
         return team;
     }
 

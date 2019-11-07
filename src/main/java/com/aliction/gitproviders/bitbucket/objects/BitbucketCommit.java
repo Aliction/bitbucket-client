@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudCommit extends BitbucketCloudObject {
+public class BitbucketCommit extends BitbucketObject {
 
     private String hash;
     private String message;
-    private BitbucketCloudAuthor author;
-    private BitbucketCloudRepository repository;
+    private BitbucketAuthor author;
+    private BitbucketRepository repository;
 
     /**
      * @param uuid
@@ -26,13 +26,13 @@ public class BitbucketCloudCommit extends BitbucketCloudObject {
      * @param author
      * @param repository
      */
-    public BitbucketCloudCommit(@JsonProperty("uuid") String uuid,
+    public BitbucketCommit(@JsonProperty("uuid") String uuid,
                                 @JsonProperty("date") String created_on,
-                                @JsonProperty("type") BitbucketCloudObjectType type,
+                                @JsonProperty("type") BitbucketObjectType type,
                                 @JsonProperty("hash") String hash,
                                 @JsonProperty("message") String message,
-                                @JsonProperty("author") BitbucketCloudAuthor author,
-                                @JsonProperty("repository") BitbucketCloudRepository repository) {
+                                @JsonProperty("author") BitbucketAuthor author,
+                                @JsonProperty("repository") BitbucketRepository repository) {
         super(uuid, created_on, type);
         this.hash = hash;
         this.message = message;
@@ -60,7 +60,7 @@ public class BitbucketCloudCommit extends BitbucketCloudObject {
      * 
      * @return return commit author
      */
-    public BitbucketCloudAuthor getAuthor() {
+    public BitbucketAuthor getAuthor() {
         return author;
     }
 
@@ -68,7 +68,7 @@ public class BitbucketCloudCommit extends BitbucketCloudObject {
      * 
      * @return repository object
      */
-    public BitbucketCloudRepository getRepository() {
+    public BitbucketRepository getRepository() {
         return repository;
     }
 

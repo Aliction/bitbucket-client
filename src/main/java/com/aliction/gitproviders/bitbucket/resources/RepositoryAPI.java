@@ -11,14 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aliction.gitproviders.bitbucket.client.BitbucketV2API;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudCreateRepositoryException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetCommitException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudGetRepositoryException;
-import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCloudPageException;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudCommit;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudRepository;
-import com.aliction.gitproviders.bitbucket.objects.BitbucketCloudUser;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketCreateRepositoryException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetCommitException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketGetRepositoryException;
+import com.aliction.gitproviders.bitbucket.exceptions.BitbucketPageException;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketCommit;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketRepository;
+import com.aliction.gitproviders.bitbucket.objects.BitbucketUser;
 import com.aliction.gitproviders.bitbucket.utils.Converters;
 
 /**
@@ -47,10 +47,10 @@ public class RepositoryAPI extends BaseAPI {
      * This method is can be extremely expensive call, and can be interrupted 
      * if number of pages is not set.
      * @return list of repository objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudGetRepositoryException
+     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryException
      */
-    public List<BitbucketCloudRepository> getAllPublicRepositories() throws BitbucketCloudPageException, BitbucketCloudGetRepositoryException {
+    public List<BitbucketRepository> getAllPublicRepositories() throws BitbucketPageException, BitbucketGetRepositoryException {
         return this.getAllPublicRepositories(null);
     }
 
@@ -61,11 +61,11 @@ public class RepositoryAPI extends BaseAPI {
      * if number of pages is not set.
      * @param afterDatetime - a date object used to limit repositories to the ones created after this date
      * @return list of repository objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudGetRepositoryException
+     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryException
      */
-    public List<BitbucketCloudRepository> getAllPublicRepositories(Date afterDatetime) throws BitbucketCloudPageException, BitbucketCloudGetRepositoryException {
-        List<BitbucketCloudRepository> publicRepos = null;
+    public List<BitbucketRepository> getAllPublicRepositories(Date afterDatetime) throws BitbucketPageException, BitbucketGetRepositoryException {
+        List<BitbucketRepository> publicRepos = null;
         Map<String, String> queryParam = null;
         if (afterDatetime != null) {
             queryParam.put("after", Converters.ConvertDateToISO8601(afterDatetime, null));
@@ -74,9 +74,9 @@ public class RepositoryAPI extends BaseAPI {
         Response response = Get(URL, null, queryParam);
         try {
             response = Validate(response);
-            publicRepos = getPaginatedObjects(response, BitbucketCloudRepository.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetRepositoryException(exp.getMessage());
+            publicRepos = getPaginatedObjects(response, BitbucketRepository.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetRepositoryException(exp.getMessage());
         }
         return publicRepos;
 
@@ -87,10 +87,10 @@ public class RepositoryAPI extends BaseAPI {
      * This API is paginated
      * @param user - user object
      * @return list of repository objects belongs to the user
-     * @throws BitbucketCloudGetRepositoryException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetRepositoryException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudRepository> getUserRepositories(BitbucketCloudUser user) throws BitbucketCloudGetRepositoryException, BitbucketCloudPageException {
+    public List<BitbucketRepository> getUserRepositories(BitbucketUser user) throws BitbucketGetRepositoryException, BitbucketPageException {
         return this.getUserRepositories(user.getUsername());
     }
 
@@ -98,17 +98,17 @@ public class RepositoryAPI extends BaseAPI {
      * The method returns all the repository belongs to the logged user
      * @param user - String username
      * @return list of repository objects
-     * @throws BitbucketCloudGetRepositoryException
-     * @throws BitbucketCloudPageException
+     * @throws BitbucketGetRepositoryException
+     * @throws BitbucketPageException
      */
-    public List<BitbucketCloudRepository> getUserRepositories(String user) throws BitbucketCloudGetRepositoryException, BitbucketCloudPageException {
-        List<BitbucketCloudRepository> userRepos = new ArrayList<BitbucketCloudRepository>();
+    public List<BitbucketRepository> getUserRepositories(String user) throws BitbucketGetRepositoryException, BitbucketPageException {
+        List<BitbucketRepository> userRepos = new ArrayList<BitbucketRepository>();
         URL = BuildURL(new String[]{CONTROLLER, user});
         Response response = Get(URL);
         try {
-            userRepos = getPaginatedObjects(response, BitbucketCloudRepository.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetRepositoryException(exp.getMessage());
+            userRepos = getPaginatedObjects(response, BitbucketRepository.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetRepositoryException(exp.getMessage());
         }
         return userRepos;
 
@@ -118,17 +118,17 @@ public class RepositoryAPI extends BaseAPI {
      * The method is used to create the input repository object
      * @param repository - repository object
      * @return the created repository object
-     * @throws BitbucketCloudCreateRepositoryException
+     * @throws BitbucketCreateRepositoryException
      */
-    public BitbucketCloudRepository createRepository(final BitbucketCloudRepository repository) throws BitbucketCloudCreateRepositoryException {
-        BitbucketCloudRepository createdRepository;
+    public BitbucketRepository createRepository(final BitbucketRepository repository) throws BitbucketCreateRepositoryException {
+        BitbucketRepository createdRepository;
         URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUsername(), repository.getReponame()});
         Response response = Create(URL, repository);
         try {
             response = Validate(response);
-            createdRepository = response.readEntity(BitbucketCloudRepository.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudCreateRepositoryException(exp.getMessage());
+            createdRepository = response.readEntity(BitbucketRepository.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketCreateRepositoryException(exp.getMessage());
         }
         return createdRepository;
     }
@@ -139,9 +139,9 @@ public class RepositoryAPI extends BaseAPI {
      * @param repoName - String repository name
      * @return repository object
      */
-    public BitbucketCloudRepository getRepositoryByName(final String owner, final String repoName) {
+    public BitbucketRepository getRepositoryByName(final String owner, final String repoName) {
         URL = BuildURL(new String[]{CONTROLLER, owner, repoName});
-        BitbucketCloudRepository repository = Get(URL).readEntity(BitbucketCloudRepository.class);
+        BitbucketRepository repository = Get(URL).readEntity(BitbucketRepository.class);
         return repository;
     }
 
@@ -160,7 +160,7 @@ public class RepositoryAPI extends BaseAPI {
      * @param repository - the repository object to be deleted
      * @return true if the delete operations is successful
      */
-    public boolean deleteRepositoryByName(final BitbucketCloudRepository repository) {
+    public boolean deleteRepositoryByName(final BitbucketRepository repository) {
         URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUuid(), repository.getReponame()});
         if (Delete(URL, repository).getStatus() == 204) {
             return true;
@@ -174,10 +174,10 @@ public class RepositoryAPI extends BaseAPI {
      * @param owner - String user/team name/uuid
      * @param repoName - String repository name
      * @return list of commit objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudGetCommitException
+     * @throws BitbucketPageException
+     * @throws BitbucketGetCommitException
      */
-    public List<BitbucketCloudCommit> getRepositoryCommits(final String owner, final String repoName) throws BitbucketCloudPageException, BitbucketCloudGetCommitException {
+    public List<BitbucketCommit> getRepositoryCommits(final String owner, final String repoName) throws BitbucketPageException, BitbucketGetCommitException {
         return this.getRepositoryCommitsPerBranch(owner, repoName, null);
     }
 
@@ -187,11 +187,11 @@ public class RepositoryAPI extends BaseAPI {
      * @param repoName - String repository name
      * @param branchName - String branch name
      * @return list of commit objects
-     * @throws BitbucketCloudPageException
-     * @throws BitbucketCloudGetCommitException
+     * @throws BitbucketPageException
+     * @throws BitbucketGetCommitException
      */
-    public List<BitbucketCloudCommit> getRepositoryCommitsPerBranch(final String owner, final String repoName, final String branchName) throws BitbucketCloudPageException, BitbucketCloudGetCommitException {
-        List<BitbucketCloudCommit> commits = null;
+    public List<BitbucketCommit> getRepositoryCommitsPerBranch(final String owner, final String repoName, final String branchName) throws BitbucketPageException, BitbucketGetCommitException {
+        List<BitbucketCommit> commits = null;
         if (branchName == null) {
             URL = BuildURL(new String[]{CONTROLLER, owner, repoName, "commits"});
         } else {
@@ -199,9 +199,9 @@ public class RepositoryAPI extends BaseAPI {
         }
         Response response = Get(URL);
         try {
-            commits = getPaginatedObjects(response, BitbucketCloudCommit.class);
-        } catch (BitbucketCloudException exp) {
-            throw new BitbucketCloudGetCommitException(exp.getMessage());
+            commits = getPaginatedObjects(response, BitbucketCommit.class);
+        } catch (BitbucketException exp) {
+            throw new BitbucketGetCommitException(exp.getMessage());
         }
         return commits;
     }

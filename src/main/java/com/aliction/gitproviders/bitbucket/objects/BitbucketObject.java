@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class BitbucketCloudObject {
+public abstract class BitbucketObject {
 
     private String uuid;
     private String created_on;
-    private BitbucketCloudObjectType type;
+    private BitbucketObjectType type;
 
     /**
      * 
@@ -22,9 +22,9 @@ public abstract class BitbucketCloudObject {
      * @param created_on
      * @param type
      */
-    public BitbucketCloudObject(@JsonProperty("uuid") final String uuid,
+    public BitbucketObject(@JsonProperty("uuid") final String uuid,
                                 @JsonProperty("created_on") final String created_on,
-                                @JsonProperty("type") final BitbucketCloudObjectType type) {
+                                @JsonProperty("type") final BitbucketObjectType type) {
         super();
         this.uuid = uuid;
         this.created_on = created_on;
@@ -51,7 +51,7 @@ public abstract class BitbucketCloudObject {
      * 
      * @return object type
      */
-    public BitbucketCloudObjectType getType() {
+    public BitbucketObjectType getType() {
         return type;
     }
 

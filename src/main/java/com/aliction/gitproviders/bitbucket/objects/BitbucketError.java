@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudError {
+public class BitbucketError {
 
-    private BitbucketCloudObjectType type;
-    private BitbucketCloudResourceError error;
+    private BitbucketObjectType type;
+    private BitbucketResourceError error;
 
     /**
      * 
@@ -22,8 +22,8 @@ public class BitbucketCloudError {
      * @param error
      */
     @JsonCreator
-    public BitbucketCloudError(@JsonProperty("type") final BitbucketCloudObjectType type,
-                               @JsonProperty("error") final BitbucketCloudResourceError error) {
+    public BitbucketError(@JsonProperty("type") final BitbucketObjectType type,
+                               @JsonProperty("error") final BitbucketResourceError error) {
         this.type = type;
         this.error = error;
     }
@@ -32,7 +32,7 @@ public class BitbucketCloudError {
      * 
      * @return
      */
-    public BitbucketCloudResourceError getError() {
+    public BitbucketResourceError getError() {
         return error;
     }
 

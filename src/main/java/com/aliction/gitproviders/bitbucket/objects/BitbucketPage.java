@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @param <T>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudPage<T extends BitbucketCloudObject> {
+public class BitbucketPage<T extends BitbucketObject> {
 
     private int size;
     private int page;
@@ -34,7 +34,7 @@ public class BitbucketCloudPage<T extends BitbucketCloudObject> {
      * @param objects
      */
     @JsonCreator
-    public BitbucketCloudPage(@JsonProperty("size") final int size,
+    public BitbucketPage(@JsonProperty("size") final int size,
                               @JsonProperty("page") final int page,
                               @JsonProperty("pagelen") final int pagelen,
                               @JsonProperty("next") final String next,

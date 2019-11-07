@@ -10,18 +10,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudEmail extends BitbucketCloudObject {
+public class BitbucketEmail extends BitbucketObject {
 
     private String email;
     private Boolean is_primary;
     private Boolean is_confirmed;
 
-    public BitbucketCloudEmail(@JsonProperty("uuid") final String uuid,
+    /**
+     * 
+     * @param uuid
+     * @param created_on
+     * @param email
+     * @param is_primary
+     * @param is_confirmed
+     * @param type
+     */
+    public BitbucketEmail(@JsonProperty("uuid") final String uuid,
                                @JsonProperty("created_on") final String created_on,
                                @JsonProperty("email") final String email,
                                @JsonProperty("is_primary") final Boolean is_primary,
                                @JsonProperty("is_confirmed") final Boolean is_confirmed,
-                               @JsonProperty("type") final BitbucketCloudObjectType type) {
+                               @JsonProperty("type") final BitbucketObjectType type) {
         super(uuid, created_on, type);
 
         this.email = email;

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketCloudOwner extends BitbucketCloudObject {
+public class BitbucketOwner extends BitbucketObject {
 
     private String username;
     private String display_name;
@@ -29,13 +29,13 @@ public class BitbucketCloudOwner extends BitbucketCloudObject {
      * @param type
      */
     @JsonCreator
-    public BitbucketCloudOwner(@JsonProperty("uuid") final String uuid,
+    public BitbucketOwner(@JsonProperty("uuid") final String uuid,
                                @JsonProperty("created_on") final String created_on,
                                @JsonProperty("username") final String username,
                                @JsonProperty("display_name") final String display_name,
                                @JsonProperty("nickname") final String nickname,
                                @JsonProperty("account_id") final String account_id,
-                               @JsonProperty("type") final BitbucketCloudObjectType type) {
+                               @JsonProperty("type") final BitbucketObjectType type) {
         super(uuid, created_on, type);
         this.username = username;
         this.display_name = display_name;

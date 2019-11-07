@@ -6,14 +6,14 @@ package com.aliction.gitproviders.bitbucket.exceptions;
  * Date: Oct 23, 2019
  *
  */
-public class BitbucketCloudGetCommitException extends BitbucketCloudException {
+public class BitbucketGetCommitException extends BitbucketException {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    public BitbucketCloudGetCommitException(String errorMsg) {
+    public BitbucketGetCommitException(String errorMsg) {
         super(errorMsg);
         // TODO Auto-generated constructor stub
     }
