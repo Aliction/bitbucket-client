@@ -15,7 +15,7 @@ public class BitbucketGetRepositoryException extends BitbucketException {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketGetRepositoryException(String errorMsg) {
         super(errorMsg);

@@ -37,21 +37,21 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param reponame
-     * @param full_name
-     * @param owner
-     * @param scm
-     * @param is_private
-     * @param project
-     * @param fork_policy
-     * @param language
-     * @param main_branch
-     * @param has_issues
-     * @param size
-     * @param description
-     * @param type
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param reponame - String repository name
+     * @param full_name - String repository full name "Owner/Repository name
+     * @param owner - BitbucketOwner owner weather a user or a team
+     * @param scm - String SCM type Mercurial or GIT
+     * @param is_private - Boolean true if the repository is private
+     * @param project - BitbucketProject project
+     * @param fork_policy - String fork policy
+     * @param language - String programming language
+     * @param main_branch - String main branch
+     * @param has_issues - Boolean true if the repository has issues
+     * @param size - Integer repository Size
+     * @param description - String repository description
+     * @param type - BitbucketObjectType type
      */
     @JsonCreator
     public BitbucketRepository(@JsonProperty("uuid") final String uuid,
@@ -69,7 +69,6 @@ public class BitbucketRepository extends BitbucketObject {
                                     @JsonProperty("size") final int size,
                                     @JsonProperty("description") final String description,
                                     @JsonProperty("links") final BitbucketRepositoryLinks links,
-                                    //                                    @JsonProperty("links") final Map<String, JsonNode> links,
                                     @JsonProperty("type") final BitbucketObjectType type) {
         super(uuid, created_on, type);
         this.reponame = reponame;
@@ -293,33 +292,6 @@ public class BitbucketRepository extends BitbucketObject {
         this.description = description;
     }
 
-    /*    public String getHttpsCloneUrl() {
-        JsonNode clone = links.get("clone");
-        if (clone != null) {
-            for (int i = 0; i < clone.size(); i++) {
-                JsonNode cloneNode = clone.get(i);
-                if (cloneNode.get("name").asText().equals("https")) {
-                    String httpsURL = cloneNode.get("href").asText();
-                    return httpsURL;
-                }
-            }
-        }
-        return "";
-    }
-    
-    public String getSSHCloneUrl() {
-        JsonNode clone = links.get("clone");
-        if (clone != null) {
-            for (int i = 0; i < clone.size(); i++) {
-                JsonNode cloneNode = clone.get(i);
-                if (cloneNode.get("name").asText().equals("ssh")) {
-                    String sshURL = cloneNode.get("href").asText();
-                    return sshURL;
-                }
-            }
-        }
-        return "";
-    }*/
     /**
      * 
      * @return list of links

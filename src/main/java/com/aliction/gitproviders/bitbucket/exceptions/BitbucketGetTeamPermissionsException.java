@@ -15,7 +15,7 @@ public class BitbucketGetTeamPermissionsException extends BitbucketException {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketGetTeamPermissionsException(String errorMsg) {
         super(errorMsg);

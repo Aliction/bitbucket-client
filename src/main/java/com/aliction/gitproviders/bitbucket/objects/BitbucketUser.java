@@ -12,13 +12,13 @@ public class BitbucketUser extends BitbucketOwner {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param username
-     * @param display_name
-     * @param nickname
-     * @param account_id
-     * @param type
+     * @param uuid - String uui
+     * @param created_on - String creation date
+     * @param username - String user name
+     * @param display_name - String display name
+     * @param nickname - String nick name
+     * @param account_id - String account Id
+     * @param type - BitbucketObjectType type
      */
     public BitbucketUser(@JsonProperty("uuid") final String uuid,
                               @JsonProperty("created_on") final String created_on,

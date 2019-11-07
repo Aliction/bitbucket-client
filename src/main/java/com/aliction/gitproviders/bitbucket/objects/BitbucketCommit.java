@@ -18,21 +18,21 @@ public class BitbucketCommit extends BitbucketObject {
     private BitbucketRepository repository;
 
     /**
-     * @param uuid
-     * @param created_on
-     * @param type
-     * @param hash
-     * @param message
-     * @param author
-     * @param repository
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param type - BitbucketObjectType type
+     * @param hash - String commit SHA1
+     * @param message - String Commit message
+     * @param author - BitbucketAuthor commmit author
+     * @param repository - BitbucketRepository
      */
-    public BitbucketCommit(@JsonProperty("uuid") String uuid,
-                                @JsonProperty("date") String created_on,
-                                @JsonProperty("type") BitbucketObjectType type,
-                                @JsonProperty("hash") String hash,
-                                @JsonProperty("message") String message,
-                                @JsonProperty("author") BitbucketAuthor author,
-                                @JsonProperty("repository") BitbucketRepository repository) {
+    public BitbucketCommit(@JsonProperty("uuid") final String uuid,
+                           @JsonProperty("date") final String created_on,
+                           @JsonProperty("type") final BitbucketObjectType type,
+                           @JsonProperty("hash") final String hash,
+                           @JsonProperty("message") final String message,
+                           @JsonProperty("author") final BitbucketAuthor author,
+                           @JsonProperty("repository") final BitbucketRepository repository) {
         super(uuid, created_on, type);
         this.hash = hash;
         this.message = message;

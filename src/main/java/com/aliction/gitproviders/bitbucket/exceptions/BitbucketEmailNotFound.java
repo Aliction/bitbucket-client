@@ -15,7 +15,7 @@ public class BitbucketEmailNotFound extends BitbucketException {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketEmailNotFound(String errorMsg) {
         super(errorMsg);

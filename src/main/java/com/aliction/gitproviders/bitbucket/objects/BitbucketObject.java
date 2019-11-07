@@ -18,9 +18,9 @@ public abstract class BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param type
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param type - BitbucketObjectType type
      */
     public BitbucketObject(@JsonProperty("uuid") final String uuid,
                                 @JsonProperty("created_on") final String created_on,

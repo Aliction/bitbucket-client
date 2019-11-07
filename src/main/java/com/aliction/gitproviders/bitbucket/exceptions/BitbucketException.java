@@ -15,7 +15,7 @@ public class BitbucketException extends Exception {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketException(String errorMsg) {
         // TODO Auto-generated constructor stub

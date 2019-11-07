@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * 
  * @author Aly Ibrahim
- * @date Nov 7, 2019
+ * Date Nov 7, 2019
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,14 +20,14 @@ public class BitbucketCommitComment extends BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param type
-     * @param user
-     * @param content
-     * @param updated_on
-     * @param id
-     * @param deleted
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param type - BitbucketObjectType
+     * @param user - BitbucketUser
+     * @param content - BitbucketCOmmentContent 
+     * @param updated_on - Stringupdate time date
+     * @param id - String Comment Id
+     * @param deleted - Boolean true if comment is deleted
      */
     public BitbucketCommitComment(@JsonProperty("uuid") final String uuid,
                                   @JsonProperty("created_on") final String created_on,

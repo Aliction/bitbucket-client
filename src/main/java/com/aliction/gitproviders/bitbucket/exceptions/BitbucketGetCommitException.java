@@ -13,6 +13,10 @@ public class BitbucketGetCommitException extends BitbucketException {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 
+     * @param errorMsg - String error message
+     */
     public BitbucketGetCommitException(String errorMsg) {
         super(errorMsg);
         // TODO Auto-generated constructor stub

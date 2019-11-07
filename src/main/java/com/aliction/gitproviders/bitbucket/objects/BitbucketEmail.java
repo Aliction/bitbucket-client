@@ -18,12 +18,12 @@ public class BitbucketEmail extends BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param email
-     * @param is_primary
-     * @param is_confirmed
-     * @param type
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param email - String email address
+     * @param is_primary - Boolean true if this email is the primary on address for the user
+     * @param is_confirmed - Boolean true if the email is confirmed by the user
+     * @param type - BitbucketObjectType type
      */
     public BitbucketEmail(@JsonProperty("uuid") final String uuid,
                                @JsonProperty("created_on") final String created_on,

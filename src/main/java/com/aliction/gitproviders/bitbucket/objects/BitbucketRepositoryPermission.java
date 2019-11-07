@@ -16,6 +16,15 @@ public class BitbucketRepositoryPermission extends BitbucketObject {
     private BitbucketUser user;
     private BitbucketRepository repository;
 
+    /**
+     * 
+     * @param uuid - String uuid
+     * @param created_on - String creation date
+     * @param permission - BitbucketRole role
+     * @param type - BitbucketObjectType type
+     * @param user - BitbucketUser user
+     * @param repository - BitbucketRepository repository
+     */
     public BitbucketRepositoryPermission(@JsonProperty("uuid") String uuid,
                                               @JsonProperty("created_on") String created_on,
                                               @JsonProperty("permission") BitbucketRole permission,

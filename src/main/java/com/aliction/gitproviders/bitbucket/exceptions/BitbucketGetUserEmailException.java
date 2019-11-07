@@ -15,7 +15,7 @@ public class BitbucketGetUserEmailException extends BitbucketException {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketGetUserEmailException(String errorMsg) {
         super(errorMsg);

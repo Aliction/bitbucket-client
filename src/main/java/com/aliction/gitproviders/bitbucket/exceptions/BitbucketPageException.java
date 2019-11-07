@@ -15,7 +15,7 @@ public class BitbucketPageException extends Exception {
 
     /**
      * 
-     * @param errorMsg
+     * @param errorMsg - String error message
      */
     public BitbucketPageException(String errorMsg) {
         super(errorMsg);

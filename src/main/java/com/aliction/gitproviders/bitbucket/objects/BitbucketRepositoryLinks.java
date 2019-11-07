@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 /**
  * 
  * @author Aly Ibrahim
- * @date Nov 6, 2019
+ * Date Nov 6, 2019
  *
  */
 

@@ -26,12 +26,12 @@ public class BitbucketPage<T extends BitbucketObject> {
 
     /**
      * 
-     * @param size
-     * @param page
-     * @param pagelen
-     * @param next
-     * @param previous
-     * @param objects
+     * @param size - Integer total number of objects
+     * @param page - Integer page number
+     * @param pagelen - Integer number of objects in page
+     * @param next - String url to the next page
+     * @param previous - String url to the previous page
+     * @param objects - List of the returned BitbucketObject objects
      */
     @JsonCreator
     public BitbucketPage(@JsonProperty("size") final int size,

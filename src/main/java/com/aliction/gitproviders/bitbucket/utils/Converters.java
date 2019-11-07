@@ -16,8 +16,8 @@ public class Converters {
      * Convert Date object to ISO 8601 time format String
      * Example : 2019-10-23T20:30:52.000+02:00
      * The default timezone as expected by Bitbucket API is UTC
-     * @param datetime
-     * @param timezone
+     * @param datetime - String date time in ISO 8601 format
+     * @param timezone - String timezone 
      * @return date time String in ISO 8601 format
      */
     public static String ConvertDateToISO8601(Date datetime, String timezone) {

@@ -18,7 +18,7 @@ import com.aliction.gitproviders.bitbucket.objects.BitbucketCommitComment;
 /**
  * The class for the commit API
  * @author Aly Ibrahim
- * @date Nov 7, 2019
+ * Date Nov 7, 2019
  *
  */
 public class CommitAPI extends BaseAPI {

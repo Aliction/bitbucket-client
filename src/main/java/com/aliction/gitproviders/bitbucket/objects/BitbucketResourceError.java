@@ -18,8 +18,8 @@ public class BitbucketResourceError {
 
     /**
      * 
-     * @param message
-     * @param detail
+     * @param message - String error message
+     * @param detail - String error details
      */
     @JsonCreator
     public BitbucketResourceError(@JsonProperty("message") final String message,

@@ -17,11 +17,11 @@ public class BitbucketProject extends BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param name
-     * @param type
-     * @param created_on
-     * @param key
+     * @param uuid - String uuid
+     * @param name - String project name
+     * @param type - BitbucketObjectType type
+     * @param created_on - String creation date
+     * @param key - String project key
      */
     public BitbucketProject(@JsonProperty("uuid") final String uuid,
                                  @JsonProperty("name") final String name,

@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BitbucketClientRawObject extends BitbucketObject {
+public class BitbucketRawObject extends BitbucketObject {
 
     /**
      * 
-     * @param type
+     * @param type - BitbucketObjectType type
      */
-    public BitbucketClientRawObject(@JsonProperty("type") BitbucketObjectType type) {
+    // Unused for the time being
+    public BitbucketRawObject(@JsonProperty("type") BitbucketObjectType type) {
         super(null, null, type);
         // TODO Auto-generated constructor stub
     }

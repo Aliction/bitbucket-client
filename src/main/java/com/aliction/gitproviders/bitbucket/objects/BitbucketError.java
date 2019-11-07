@@ -18,8 +18,8 @@ public class BitbucketError {
 
     /**
      * 
-     * @param type
-     * @param error
+     * @param type - BitbucketObjectType type
+     * @param error - BitbucketResourceError error object
      */
     @JsonCreator
     public BitbucketError(@JsonProperty("type") final BitbucketObjectType type,
@@ -30,7 +30,7 @@ public class BitbucketError {
 
     /**
      * 
-     * @return
+     * @return error object
      */
     public BitbucketResourceError getError() {
         return error;

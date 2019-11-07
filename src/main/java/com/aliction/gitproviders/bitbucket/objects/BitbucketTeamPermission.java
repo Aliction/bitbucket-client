@@ -19,12 +19,12 @@ public class BitbucketTeamPermission extends BitbucketObject {
 
     /**
      * 
-     * @param uuid
-     * @param created_on
-     * @param permission
-     * @param type
-     * @param user
-     * @param team
+     * @param uuid - String uuid
+     * @param created_on - String reation date
+     * @param permission - BitbucketRole role
+     * @param type - BitbucketObjectType - type
+     * @param user - BitbucketUser - user
+     * @param team - BitbucketTeam - team
      */
     public BitbucketTeamPermission(@JsonProperty("uuid") String uuid,
                                         @JsonProperty("created_on") String created_on,
