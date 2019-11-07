@@ -29,7 +29,7 @@ public class TeamAPI extends BaseAPI {
 
     /**
      * 
-     * @param bitbucket
+     * @param bitbucket - BitbucketV2API object
      */
     public TeamAPI(BitbucketV2API bitbucket) {
         super(bitbucket);
@@ -38,7 +38,7 @@ public class TeamAPI extends BaseAPI {
     /**
      * The method return team object with the team details
      * Resource /2.0/teams/{username}
-     * @param team
+     * @param team - BitbucketTeam object
      * @return team object
      */
     public BitbucketTeam getTeamInfo(String team) {
@@ -57,8 +57,8 @@ public class TeamAPI extends BaseAPI {
      * Resource /2.0/teams?q=role={role}
      * @param role - logged user role are defined by the enum {admin, collaborator, member}
      * @return list of team objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetTeamException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetTeamException - Exception for getting team object
      */
     public List<BitbucketTeam> getUserTeams(BitbucketRole role) throws BitbucketPageException, BitbucketGetTeamException {
         List<BitbucketTeam> teams = null;

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Aly Ibrahim
  * Date: Oct 25, 2019
  *
- * @param <T>
+ * @param <T> - Any object extends BitbucketObject
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BitbucketPage<T extends BitbucketObject> {

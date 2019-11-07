@@ -126,7 +126,7 @@ public class BitbucketRepositoryLinks {
 
     /**
      * 
-     * @param asText - String url
+     * @param clone_https - String url
      */
     public void setClone_https(String clone_https) {
         this.clone_https = clone_https;

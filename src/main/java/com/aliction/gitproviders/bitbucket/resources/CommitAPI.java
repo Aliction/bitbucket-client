@@ -30,7 +30,7 @@ public class CommitAPI extends BaseAPI {
 
     /**
      * 
-     * @param bitbucket
+     * @param bitbucket - BitbucketV2API object
      */
     public CommitAPI(BitbucketV2API bitbucket) {
         super(bitbucket);
@@ -43,7 +43,7 @@ public class CommitAPI extends BaseAPI {
      * @param repo_slug - String repository slug or uuid
      * @param sha - String SHA1 commit Id
      * @return commit object
-     * @throws BitbucketGetCommitException 
+     * @throws BitbucketGetCommitException - Exception for getting commit objects
      */
     public BitbucketCommit getCommitbyId(final String username, final String repo_slug, final String sha) throws BitbucketGetCommitException {
         BitbucketCommit commit = null;
@@ -62,7 +62,7 @@ public class CommitAPI extends BaseAPI {
      * @param repo_slug - String repository slug or uuid
      * @param sha - String SHA1 commit Id
      * @return true if the apporval is successful
-     * @throws BitbucketException
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
     public Boolean approveCommitbyId(final String username, final String repo_slug, final String sha) throws BitbucketException {
         Boolean approved = null;
@@ -77,8 +77,8 @@ public class CommitAPI extends BaseAPI {
      * @param repo_slug - String repository slug or uuid
      * @param sha - String SHA1 commit Id
      * @return list of comment objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetCommitCommentException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetCommitCommentException - Error getting comment objects
      */
     public List<BitbucketCommitComment> getCommitComments(final String username, final String repo_slug, final String sha) throws BitbucketPageException, BitbucketGetCommitCommentException {
         List<BitbucketCommitComment> comments = null;

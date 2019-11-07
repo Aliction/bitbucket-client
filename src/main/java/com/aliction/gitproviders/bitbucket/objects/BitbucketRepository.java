@@ -51,6 +51,7 @@ public class BitbucketRepository extends BitbucketObject {
      * @param has_issues - Boolean true if the repository has issues
      * @param size - Integer repository Size
      * @param description - String repository description
+     * @param links - BitbucketRepositoryLinks repository links
      * @param type - BitbucketObjectType type
      */
     @JsonCreator
@@ -88,10 +89,10 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * A simple constructor to create repository
-     * @param reponame
-     * @param owner
-     * @param scm
-     * @param is_private
+     * @param reponame - String repository name
+     * @param owner - BitbucketOwner owner weather a user or a team
+     * @param scm - String SCM type Mercurial or GIT
+     * @param is_private - Boolean true if the repository is private
      */
     public BitbucketRepository(@JsonProperty("name") final String reponame,
                                     @JsonProperty("owner") final BitbucketOwner owner,
@@ -206,7 +207,7 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * 
-     * @param fork_policy
+     * @param fork_policy - String fork_policy
      */
     public void setFork_policy(String fork_policy) {
         this.fork_policy = fork_policy;
@@ -222,7 +223,7 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * 
-     * @param language
+     * @param language - String programming language
      */
     public void setLanguage(String language) {
         this.language = language;
@@ -238,7 +239,7 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * 
-     * @param main_branch
+     * @param main_branch - String main branch
      */
     public void setMain_branch(String main_branch) {
         this.main_branch = main_branch;

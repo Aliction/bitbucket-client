@@ -39,7 +39,7 @@ public class UserAPI extends BaseAPI {
 
     /**
      * 
-     * @param bitbucket
+     * @param bitbucket - BitbucketV2API object
      */
     public UserAPI(BitbucketV2API bitbucket) {
         super(bitbucket);
@@ -60,7 +60,7 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/emails/{email}
      * @param email - String email address
      * @return email object
-     * @throws BitbucketEmailNotFound
+     * @throws BitbucketEmailNotFound - Exception for not finding the email address
      */
     public BitbucketEmail checkUserEmail(final String email) throws BitbucketEmailNotFound {
         String URL = BuildURL(new String[]{CONTROLLER, "emails", email});
@@ -78,8 +78,8 @@ public class UserAPI extends BaseAPI {
      * The method will return list of email objects of the current user
      * Resource /2.0/user/emails/
      * @return list of email objects
-     * @throws BitbucketGetUserEmailException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetUserEmailException - Exception for getting the user email address
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketEmail> getUserEmails() throws BitbucketGetUserEmailException, BitbucketPageException {
         String URL = BuildURL(new String[]{CONTROLLER, "emails"});
@@ -99,8 +99,8 @@ public class UserAPI extends BaseAPI {
      * The method return user repositories
      * Resource /2.0/user/permissions/repositories
      * @return list of repositories
-     * @throws BitbucketGetRepositoryPermissionsException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryPermissionsException - Exception for getting repository permissions
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketRepository> getUserRepositories() throws BitbucketGetRepositoryPermissionsException, BitbucketPageException {
         return getUserRepositoriesPermissions(null);
@@ -111,8 +111,8 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/permissions/repositories?q=permission={permission}
      * @param permission - user permissions are defined by the enum {admin, read, write}
      * @return list of repositories
-     * @throws BitbucketGetRepositoryPermissionsException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryPermissionsException - Exception for getting repository permissions
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketRepository> getUserRepositoriesPermissions(final BitbucketPermission permission) throws BitbucketGetRepositoryPermissionsException, BitbucketPageException {
         Map<String, String> queryParam = null;
@@ -140,8 +140,8 @@ public class UserAPI extends BaseAPI {
      * The method return teams the user is belongs to
      * Resource /2.0/user/permissions/teams
      * @return list of team objects
-     * @throws BitbucketGetTeamPermissionsException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetTeamPermissionsException - Exception for getting team permissions
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketTeam> getUserTeamsPermissions() throws BitbucketGetTeamPermissionsException, BitbucketPageException {
         return getUserTeamsPermissions(null);
@@ -152,8 +152,8 @@ public class UserAPI extends BaseAPI {
      * Resource /2.0/user/permissions/teams?q=permission={role}
      * @param role - user roles are defined by the enum {admin, collaborator}
      * @return list of team objects
-     * @throws BitbucketGetTeamPermissionsException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetTeamPermissionsException - Exception for getting team permissions
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketTeam> getUserTeamsPermissions(final BitbucketRole role) throws BitbucketGetTeamPermissionsException, BitbucketPageException {
         Map<String, String> queryParam = null;

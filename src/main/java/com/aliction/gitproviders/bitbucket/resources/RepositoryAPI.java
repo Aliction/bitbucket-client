@@ -36,7 +36,7 @@ public class RepositoryAPI extends BaseAPI {
 
     /**
      * 
-     * @param bitbucket
+     * @param bitbucket - BitbucketV2API object
      */
     public RepositoryAPI(BitbucketV2API bitbucket) {
         super(bitbucket);
@@ -47,8 +47,8 @@ public class RepositoryAPI extends BaseAPI {
      * This method is can be extremely expensive call, and can be interrupted 
      * if number of pages is not set.
      * @return list of repository objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetRepositoryException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetRepositoryException - Exception for getting repositories
      */
     public List<BitbucketRepository> getAllPublicRepositories() throws BitbucketPageException, BitbucketGetRepositoryException {
         return this.getAllPublicRepositories(null);
@@ -61,8 +61,8 @@ public class RepositoryAPI extends BaseAPI {
      * if number of pages is not set.
      * @param afterDatetime - a date object used to limit repositories to the ones created after this date
      * @return list of repository objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetRepositoryException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetRepositoryException - Exception for getting repositories
      */
     public List<BitbucketRepository> getAllPublicRepositories(Date afterDatetime) throws BitbucketPageException, BitbucketGetRepositoryException {
         List<BitbucketRepository> publicRepos = null;
@@ -87,8 +87,8 @@ public class RepositoryAPI extends BaseAPI {
      * This API is paginated
      * @param user - user object
      * @return list of repository objects belongs to the user
-     * @throws BitbucketGetRepositoryException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryException - Exception for getting repositories
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketRepository> getUserRepositories(BitbucketUser user) throws BitbucketGetRepositoryException, BitbucketPageException {
         return this.getUserRepositories(user.getUsername());
@@ -98,8 +98,8 @@ public class RepositoryAPI extends BaseAPI {
      * The method returns all the repository belongs to the logged user
      * @param user - String username
      * @return list of repository objects
-     * @throws BitbucketGetRepositoryException
-     * @throws BitbucketPageException
+     * @throws BitbucketGetRepositoryException - Exception for getting repositories
+     * @throws BitbucketPageException - Exception for validating page response
      */
     public List<BitbucketRepository> getUserRepositories(String user) throws BitbucketGetRepositoryException, BitbucketPageException {
         List<BitbucketRepository> userRepos = new ArrayList<BitbucketRepository>();
@@ -118,7 +118,7 @@ public class RepositoryAPI extends BaseAPI {
      * The method is used to create the input repository object
      * @param repository - repository object
      * @return the created repository object
-     * @throws BitbucketCreateRepositoryException
+     * @throws BitbucketCreateRepositoryException - Exception for creating repository
      */
     public BitbucketRepository createRepository(final BitbucketRepository repository) throws BitbucketCreateRepositoryException {
         BitbucketRepository createdRepository;
@@ -174,8 +174,8 @@ public class RepositoryAPI extends BaseAPI {
      * @param owner - String user/team name/uuid
      * @param repoName - String repository name
      * @return list of commit objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetCommitException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetCommitException - Exception for getting commit objects
      */
     public List<BitbucketCommit> getRepositoryCommits(final String owner, final String repoName) throws BitbucketPageException, BitbucketGetCommitException {
         return this.getRepositoryCommitsPerBranch(owner, repoName, null);
@@ -187,8 +187,8 @@ public class RepositoryAPI extends BaseAPI {
      * @param repoName - String repository name
      * @param branchName - String branch name
      * @return list of commit objects
-     * @throws BitbucketPageException
-     * @throws BitbucketGetCommitException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketGetCommitException - Exception for getting commit objects
      */
     public List<BitbucketCommit> getRepositoryCommitsPerBranch(final String owner, final String repoName, final String branchName) throws BitbucketPageException, BitbucketGetCommitException {
         List<BitbucketCommit> commits = null;

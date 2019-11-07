@@ -38,6 +38,10 @@ public abstract class BaseAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseAPI.class);
     private BitbucketV2API bitbucketAPI;
 
+    /**
+     * 
+     * @param bitbucket - BitbucketV2API object
+     */
     public BaseAPI(BitbucketV2API bitbucket) {
         this.bitbucketAPI = bitbucket;
     }
@@ -59,6 +63,7 @@ public abstract class BaseAPI {
      * The method to return list of bitbucket objects from response page
      * @param pageJSON - String of JSON page response
      * @param objectClass - Class used to cast objects
+     * @param <T> - Object Class extending BitbucketObject
      * @return list of Bitbucket objects
      */
     protected <T> List<T> getPageValues(String pageJSON, Class<T> objectClass) {
@@ -82,8 +87,8 @@ public abstract class BaseAPI {
      * @param response - response object
      * @param objectClass - Class used to cast objects
      * @return list of Bitbucket objects
-     * @throws BitbucketPageException
-     * @throws BitbucketException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
     protected <T extends BitbucketObject> List<T> getPaginatedObjects(final Response response, Class<T> objectClass) throws BitbucketPageException, BitbucketException {
         return this.getPaginatedObjects(response, this.bitbucketAPI.getMaxPagesReturned(), objectClass);
@@ -95,8 +100,8 @@ public abstract class BaseAPI {
      * @param numberOfPages - int max number of returned pages
      * @param objectClass - Class used to cast objects
      * @return list of Bitbucket objects
-     * @throws BitbucketPageException
-     * @throws BitbucketException
+     * @throws BitbucketPageException - Exception for validating page response
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
     protected <T extends BitbucketObject> List<T> getPaginatedObjects(final Response response, final int numberOfPages, Class<T> objectClass) throws BitbucketPageException, BitbucketException {
         List<T> bitbucketObjects = new ArrayList<T>();
@@ -207,7 +212,7 @@ public abstract class BaseAPI {
      * The overloaded response method that will return the casted objects
      * @param response - response object
      * @return response object
-     * @throws BitbucketException
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
     protected Response Validate(final Response response) throws BitbucketException {
         if (response.getStatusInfo().equals(Response.Status.OK)) {
@@ -223,7 +228,7 @@ public abstract class BaseAPI {
      * @param response - response object
      * @param objectClass - object class to be used for casting
      * @return casted Bitbucket object
-     * @throws BitbucketException
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
     protected <T extends BitbucketObject> T Validate(final Response response, final Class<T> objectClass) throws BitbucketException {
         if (response.getStatusInfo().equals(Response.Status.OK)) {

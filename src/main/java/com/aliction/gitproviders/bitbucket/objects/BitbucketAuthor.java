@@ -17,7 +17,7 @@ public class BitbucketAuthor extends BitbucketObject {
 
     /**
      * 
-     * @param raw - String "username <email_address>
+     * @param raw - String "username email_address
      * @param uuid - String uuid
      * @param created_on - String creation date
      * @param user - BitbucketUser type
