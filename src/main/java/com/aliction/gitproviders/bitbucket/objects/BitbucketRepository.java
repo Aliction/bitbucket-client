@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BitbucketRepository extends BitbucketObject {
 
     @JsonProperty("name")
-    private String reponame;
+    private String name;
+    private String slug;
     private String full_name;
     private BitbucketOwner owner;
     @JsonProperty("scm")
@@ -29,7 +30,6 @@ public class BitbucketRepository extends BitbucketObject {
     private int size;
     private String description;
     private BitbucketRepositoryLinks links;
-    //    private Map<String, JsonNode> links;
 
     public BitbucketRepository() {
         super(null, null, null);
@@ -39,7 +39,8 @@ public class BitbucketRepository extends BitbucketObject {
      * 
      * @param uuid - String uuid
      * @param created_on - String creation date
-     * @param reponame - String repository name
+     * @param name - String repository name
+     * @param slug - String repository slug
      * @param full_name - String repository full name "Owner/Repository name
      * @param owner - BitbucketOwner owner weather a user or a team
      * @param scm - String SCM type Mercurial or GIT
@@ -57,7 +58,8 @@ public class BitbucketRepository extends BitbucketObject {
     @JsonCreator
     public BitbucketRepository(@JsonProperty("uuid") final String uuid,
                                     @JsonProperty("created_on") final String created_on,
-                                    @JsonProperty("name") final String reponame,
+                               @JsonProperty("name") final String name,
+                               @JsonProperty("slug") final String slug,
                                     @JsonProperty("full_name") final String full_name,
                                     @JsonProperty("owner") final BitbucketOwner owner,
                                     @JsonProperty("scm") final String scm,
@@ -72,7 +74,7 @@ public class BitbucketRepository extends BitbucketObject {
                                     @JsonProperty("links") final BitbucketRepositoryLinks links,
                                     @JsonProperty("type") final BitbucketObjectType type) {
         super(uuid, created_on, type);
-        this.reponame = reponame;
+        this.name = name;
         this.full_name = full_name;
         this.owner = owner;
         this.scm = scm;
@@ -89,17 +91,17 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * A simple constructor to create repository
-     * @param reponame - String repository name
+     * @param slug - String repository slug
      * @param owner - BitbucketOwner owner weather a user or a team
      * @param scm - String SCM type Mercurial or GIT
      * @param is_private - Boolean true if the repository is private
      */
-    public BitbucketRepository(@JsonProperty("name") final String reponame,
+    public BitbucketRepository(@JsonProperty("slug") final String slug,
                                     @JsonProperty("owner") final BitbucketOwner owner,
                                     @JsonProperty("scm") final String scm,
                                     @JsonProperty("is_private") final Boolean is_private) {
         super(null, null, null);
-        this.reponame = reponame;
+        this.slug = slug;
         this.owner = owner;
         this.scm = scm;
         this.is_private = is_private;
@@ -109,16 +111,32 @@ public class BitbucketRepository extends BitbucketObject {
      * 
      * @return repository name
      */
-    public String getReponame() {
-        return reponame;
+    public String getName() {
+        return name;
     }
 
     /**
      * 
      * @param reponame - repository name
      */
-    public void setReponame(String reponame) {
-        this.reponame = reponame;
+    public void setName(String reponame) {
+        this.name = reponame;
+    }
+
+    /**
+     * 
+     * @return repository slug
+     */
+    public String getSlug() {
+        return slug;
+    }
+
+    /**
+     * 
+     * @param slug - String repository slug
+     */
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     /**

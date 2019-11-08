@@ -122,7 +122,7 @@ public class RepositoryAPI extends BaseAPI {
      */
     public BitbucketRepository createRepository(final BitbucketRepository repository) throws BitbucketCreateRepositoryException {
         BitbucketRepository createdRepository;
-        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUsername(), repository.getReponame()});
+        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUsername(), repository.getName()});
         Response response = Create(URL, repository);
         try {
             response = Validate(response);
@@ -161,7 +161,7 @@ public class RepositoryAPI extends BaseAPI {
      * @return true if the delete operations is successful
      */
     public boolean deleteRepositoryByName(final BitbucketRepository repository) {
-        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUuid(), repository.getReponame()});
+        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUuid(), repository.getName()});
         if (Delete(URL, repository).getStatus() == 204) {
             return true;
         }
