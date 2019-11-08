@@ -92,7 +92,7 @@ public class BitbucketRepository extends BitbucketObject {
 
     /**
      * A simple constructor to create repository
-     * @param slug - String repository slug
+     * @param name - String repository name
      * @param owner - BitbucketOwner owner weather a user or a team
      * @param scm - String SCM type Mercurial or GIT
      * @param is_private - Boolean true if the repository is private

@@ -86,6 +86,7 @@ public abstract class BaseAPI {
      * The method return list of objects extends Bitbucket object from response page
      * @param response - response object
      * @param objectClass - Class used to cast objects
+     * @param <T> - Object Class extending BitbucketObject
      * @return list of Bitbucket objects
      * @throws BitbucketPageException - Exception for validating page response
      * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
@@ -99,6 +100,7 @@ public abstract class BaseAPI {
      * @param response - response object
      * @param numberOfPages - int max number of returned pages
      * @param objectClass - Class used to cast objects
+     * @param <T> - Object Class extending BitbucketObject
      * @return list of Bitbucket objects
      * @throws BitbucketPageException - Exception for validating page response
      * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
@@ -227,6 +229,7 @@ public abstract class BaseAPI {
      * The method is used to validate response object and cast the response to object extends the base object 
      * @param response - response object
      * @param objectClass - object class to be used for casting
+     * @param <T> - Object Class extending BitbucketObject
      * @return casted Bitbucket object
      * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
