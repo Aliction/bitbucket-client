@@ -122,7 +122,7 @@ public class RepositoryAPI extends BaseAPI {
      */
     public BitbucketRepository createRepository(final BitbucketRepository repository) throws BitbucketCreateRepositoryException {
         BitbucketRepository createdRepository;
-        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUsername(), repository.getName()});
+        URL = BuildURL(new String[]{CONTROLLER, repository.getOwner().getUsername(), repository.getSlug()});
         Response response = Create(URL, repository);
         try {
             response = Validate(response);
@@ -138,10 +138,11 @@ public class RepositoryAPI extends BaseAPI {
      * @param owner - String user/team name/uuid
      * @param repoName - String repository name
      * @return repository object
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message
      */
-    public BitbucketRepository getRepositoryByName(final String owner, final String repoName) {
+    public BitbucketRepository getRepositoryByName(final String owner, final String repoName) throws BitbucketException {
         URL = BuildURL(new String[]{CONTROLLER, owner, repoName});
-        BitbucketRepository repository = Get(URL).readEntity(BitbucketRepository.class);
+        BitbucketRepository repository = Validate(Get(URL)).readEntity(BitbucketRepository.class);
         return repository;
     }
 
@@ -150,8 +151,9 @@ public class RepositoryAPI extends BaseAPI {
      * @param owner - String user/team name/uuid
      * @param repoName - String repository name
      * @return true if the delete operations is successful
+     * @throws BitbucketException - Base Bitbucket Exception with error showing in the message 
      */
-    public boolean deleteRepositoryByName(final String owner, final String repoName) {
+    public boolean deleteRepositoryByName(final String owner, final String repoName) throws BitbucketException {
         return this.deleteRepositoryByName(this.getRepositoryByName(owner, repoName));
     }
 

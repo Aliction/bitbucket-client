@@ -75,6 +75,7 @@ public class BitbucketRepository extends BitbucketObject {
                                     @JsonProperty("type") final BitbucketObjectType type) {
         super(uuid, created_on, type);
         this.name = name;
+        this.slug = slug;
         this.full_name = full_name;
         this.owner = owner;
         this.scm = scm;
@@ -96,12 +97,13 @@ public class BitbucketRepository extends BitbucketObject {
      * @param scm - String SCM type Mercurial or GIT
      * @param is_private - Boolean true if the repository is private
      */
-    public BitbucketRepository(@JsonProperty("slug") final String slug,
+    public BitbucketRepository(@JsonProperty("name") final String name,
                                     @JsonProperty("owner") final BitbucketOwner owner,
                                     @JsonProperty("scm") final String scm,
                                     @JsonProperty("is_private") final Boolean is_private) {
         super(null, null, null);
-        this.slug = slug;
+        this.name = name;
+        this.slug = name.toLowerCase();
         this.owner = owner;
         this.scm = scm;
         this.is_private = is_private;
